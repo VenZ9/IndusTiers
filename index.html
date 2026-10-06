@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IndusTiers | Minecraft Minigames & Championships</title>
-    <meta name="description" content="IndusTiers is a competitive Minecraft server and Discord community for Bedrock players. Join minigames, tier tests, and championships.">
+    <title>IndusGames | Minecraft Minigames & Championships</title>
+    <meta name="description" content="IndusGames is a competitive Bedrock Minecraft server and Discord community. Join minigames, tier tests, and championships.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         (function () {
-            const saved = localStorage.getItem('industiers-theme');
+            const saved = localStorage.getItem('indusgames-theme');
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const theme = saved || (prefersDark ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', theme);
@@ -26,13 +26,14 @@
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
             <a href="#" class="navbar-logo" onclick="showHome(event)">
-                <img src="1790611396589.png" alt="IndusTiers Logo">
-                <span>IndusTiers</span>
+                <img src="1790611396589.png" alt="IndusGames Logo">
+                <span>IndusGames</span>
             </a>
 
             <ul class="navbar-links">
                 <li><a href="#" onclick="showHome(event)">Home</a></li>
                 <li><a href="#" onclick="showRules(event)">Rules</a></li>
+                <li><a href="https://industiers.vercel.app" target="_blank" rel="noopener">IndusTiers</a></li>
                 <li><a href="https://discord.gg/yXB3zfjewb" target="_blank" rel="noopener">Discord</a></li>
                 <li>
                     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
@@ -58,6 +59,7 @@
         <div class="menu-dropdown" id="menuDropdown">
             <a href="#" onclick="showHome(event)">Home</a>
             <a href="#" onclick="showRules(event)">Rules</a>
+            <a href="https://industiers.vercel.app" target="_blank" rel="noopener">IndusTiers</a>
             <a href="https://discord.gg/yXB3zfjewb" target="_blank" rel="noopener">Discord</a>
             <a href="https://industiers.vercel.app/ranking" target="_blank" rel="noopener">Leaderboard</a>
         </div>
@@ -70,7 +72,7 @@
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-badge">Bedrock • Competitive Minigames</div>
-                <h1>Welcome to <span>IndusTiers</span></h1>
+                <h1>Welcome to <span>IndusGames</span></h1>
                 <p>
                     An MCC-style competitive Minecraft server built for serious Bedrock players. 
                     Custom minigames, frequent events, and a fast-growing community.
@@ -98,7 +100,7 @@
             </div>
         </section>
 
-        <!-- FEATURES -->
+        <!-- GAMEMODES -->
         <section class="features">
             <div class="section-title">
                 <h2>Core Gamemodes</h2>
@@ -107,75 +109,35 @@
 
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
-                    <h3>Battle Beacon</h3>
-                    <p>Fight for control of the beacon in fast-paced team battles.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-cloud"></i></div>
-                    <h3>Sky Battle</h3>
-                    <p>Build, fight, and survive on floating islands above the void.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-bed"></i></div>
-                    <h3>Bedwars</h3>
-                    <p>Protect your bed, destroy others, and dominate the arena.</p>
-                </div>
-                <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-crosshairs"></i></div>
-                    <h3>Kit PvP</h3>
-                    <p>Choose your kit and battle in pure skill-based combat.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-running"></i></div>
-                    <h3>Parkour Rush</h3>
-                    <p>Race through challenging courses and beat the clock.</p>
+                    <h3>FFA</h3>
+                    <p>Free-for-all combat. Every player for themselves.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-fist-raised"></i></div>
                     <h3>Duels</h3>
                     <p>Challenge friends or rivals in 1v1 combat scenarios.</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- WHY JOIN -->
-        <section class="features" style="padding-top: 0;">
-            <div class="section-title">
-                <h2>Why Join IndusTiers?</h2>
-                <p>More than just a server — it's a community built for competitors.</p>
-            </div>
-
-            <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-medal"></i></div>
-                    <h3>Events</h3>
-                    <p>Regular community events with unique challenges and rewards.</p>
+                    <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>Bedfight</h3>
+                    <p>Fast-paced bed defense and attack battles.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-gift"></i></div>
-                    <h3>Giveaways</h3>
-                    <p>Frequent giveaways for ranks, cosmetics, and more.</p>
+                    <div class="feature-icon"><i class="fas fa-bed"></i></div>
+                    <div class="card-header-flex">
+                        <h3>Bedwars</h3>
+                        <span class="soon-badge">Soon</span>
+                    </div>
+                    <p>Protect your bed, destroy others, and dominate the arena.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-trophy"></i></div>
-                    <h3>Championships</h3>
-                    <p>Compete in seasonal championships to prove your skill.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-award"></i></div>
-                    <h3>Tournaments</h3>
-                    <p>Structured tournaments with brackets and prizes.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-comments"></i></div>
-                    <h3>Chill Community</h3>
-                    <p>An active and welcoming Discord community of 1000+ members.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Recruitment Open</h3>
-                    <p>We're hiring Staff, Builders, Designers, and Addon Makers.</p>
+                    <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+                    <div class="card-header-flex">
+                        <h3>Skywars</h3>
+                        <span class="soon-badge">Soon</span>
+                    </div>
+                    <p>Build, fight, and survive on floating islands above the void.</p>
                 </div>
             </div>
         </section>
@@ -194,7 +156,7 @@
                     <p>Discord Members</p>
                 </div>
                 <div class="stat-item">
-                    <h3>6+</h3>
+                    <h3>5+</h3>
                     <p>Gamemodes</p>
                 </div>
                 <div class="stat-item">
@@ -328,9 +290,9 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-brand">
-                <h3>IndusTiers</h3>
+                <h3>IndusGames</h3>
                 <p>
-                    A competitive Minecraft server for Bedrock players. 
+                    A competitive Bedrock Minecraft server.
                     Custom minigames, tier tests, and a growing community.
                 </p>
             </div>
@@ -340,6 +302,7 @@
                 <ul>
                     <li><a href="#" onclick="showHome(event)">Home</a></li>
                     <li><a href="#" onclick="showRules(event)">Rules</a></li>
+                    <li><a href="https://industiers.vercel.app" target="_blank" rel="noopener">IndusTiers</a></li>
                     <li><a href="https://discord.gg/yXB3zfjewb" target="_blank" rel="noopener">Discord</a></li>
                     <li><a href="https://industiers.vercel.app/ranking" target="_blank" rel="noopener">Leaderboard</a></li>
                 </ul>
@@ -350,7 +313,7 @@
                 <ul>
                     <li><a href="#">IP: indusgames.mine.bz</a></li>
                     <li><a href="#">Port: 25567</a></li>
-                    <li><a href="#">Bedrock</a></li>
+                    <li><a href="#">Bedrock Edition</a></li>
                 </ul>
             </div>
 
@@ -364,7 +327,7 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2026 IndusTiers. All rights reserved. Not affiliated with Mojang AB.</p>
+            <p>&copy; 2026 IndusGames. All rights reserved. Not affiliated with Mojang AB.</p>
             <p style="margin-top:0.5rem; font-size:0.8rem;">
                 Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> for the Minecraft community.
             </p>
@@ -373,4 +336,4 @@
 
     <script src="script.js"></script>
 </body>
-</html>
+            </html>
