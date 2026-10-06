@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndusTiers | Minecraft Minigames & Championships</title>
+    <meta name="description" content="IndusTiers is a competitive Minecraft server and Discord community for Bedrock players. Join minigames, tier tests, and championships.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== TOAST NOTIFICATIONS ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo" onclick="showHome(event)">
+                <img src="https://i.imgur.com/placeholder-logo.png" alt="IndusTiers Logo">
+                <span>IndusTiers</span>
+            </a>
+
+            <ul class="navbar-links">
+                <li><a href="#" onclick="showHome(event)">Home</a></li>
+                <li><a href="#" id="navAccountLink" onclick="handleAccountClick(event)">Account</a></li>
+                <li><a href="https://discord.gg/yXB3zfjewb" target="_blank" rel="noopener">Discord</a></li>
+                <li><a href="#" class="navbar-cta" onclick="toggleMenu(event)">Menu <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a></li>
+            </ul>
+
+            <button class="menu-toggle" onclick="toggleMenu(event)" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="menu-dropdown" id="menuDropdown">
+            <a href="#" onclick="showHome(event)">Home</a>
+            <a href="#" id="dropdownAccountLink" onclick="handleAccountClick(event)">Account</a>
+            <a href="https://discord.gg/yXB3zfjewb" target="_blank" rel="noopener">Discord</a>
+            <a href="https://industiers.vercel.app/ranking" target="_blank" rel="noopener">Leaderboard</a>
+            <a href="#" id="dropdownProfileLink" onclick="handleProfileClick(event)">Edit Profile</a>
+            <a href="#" id="dropdownLogoutLink" class="logout-link" onclick="handleLogout(event)" style="display: none;">Log Out</a>
+        </div>
+    </nav>
+
+    <!-- ===== AUTH MODAL ===== -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeAuthModal()" aria-label="Close modal"><i class="fas fa-times"></i></button>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Log In</button>
+                <button class="auth-tab" id="tabSignup" onclick="switchAuthTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- Log In Form -->
+            <div class="auth-form active" id="loginForm">
+                <h2>Welcome Back</h2>
+                <p class="auth-subtitle">Log in to your IndusTiers account.</p>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    <div class="auth-options">
+                        <label><input type="checkbox"> Remember me</label>
+                        <a href="#" onclick="handlePasswordReset(event)">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn-auth" id="loginBtn">Log In</button>
+                </form>
+                <div class="auth-divider">or</div>
+                <button class="btn-google" onclick="handleGoogleLogin()"><i class="fab fa-google"></i> Continue with Google</button>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="auth-form" id="signupForm">
+                <h2>Create Account</h2>
+                <p class="auth-subtitle">Join the IndusTiers community today.</p>
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label for="signupUsername">Username</label>
+                        <input type="text" id="signupUsername" placeholder="Choose a username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Create a password" required>
+                        <small>Must be at least 8 characters.</small>
+                    </div>
+                    <button type="submit" class="btn-auth" id="signupBtn">Sign Up</button>
+                </form>
+                <div class="auth-divider">or</div>
+                <button class="btn-google" onclick="handleGoogleLogin()"><i class="fab fa-google"></i> Sign up with Google</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HOME PAGE ===== -->
+    <div class="home-page" id="homePage">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">Bedrock & Java • Competitive Minigames</div>
+                <h1>Welcome to <span>IndusTiers</span></h1>
+                <p>
+                    An MCC-style competitive Minecraft server built for serious Bedrock players. 
+                    Custom minigames, frequent events, and a fast-growing community.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="https://discord.gg/yXB3zfjewb" target="_blank" rel="noopener" class="btn-primary">
+                        Join Discord
+                    </a>
+                    <a href="https://industiers.vercel.app/ranking" target="_blank" rel="noopener" class="btn-secondary">
+                        View Leaderboard
+                    </a>
+                </div>
+
+                <div class="server-info">
+                    <div class="server-ip">
+                        <span>IP: indusgames.mine.bz</span>
+                        <button onclick="copyIP('indusgames.mine.bz', event)" id="copyBtn">Copy</button>
+                    </div>
+                    <div class="server-ip">
+                        <span>Port: 25567</span>
+                        <button onclick="copyIP('25567', event)" id="copyPortBtn">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section class="features">
+            <div class="section-title">
+                <h2>Core Gamemodes</h2>
+                <p>Jump into action with our custom-built minigames designed for competitive play.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Battle Beacon</h3>
+                    <p>Fight for control of the beacon in fast-paced team battles.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>Sky Battle</h3>
+                    <p>Build, fight, and survive on floating islands above the void.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bed"></i></div>
+                    <h3>Bedwars</h3>
+                    <p>Protect your bed, destroy others, and dominate the arena.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-crosshairs"></i></div>
+                    <h3>Kit PvP</h3>
+                    <p>Choose your kit and battle in pure skill-based combat.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-running"></i></div>
+                    <h3>Parkour Rush</h3>
+                    <p>Race through challenging courses and beat the clock.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-fist-raised"></i></div>
+                    <h3>Duels</h3>
+                    <p>Challenge friends or rivals in 1v1 combat scenarios.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY JOIN -->
+        <section class="features" style="padding-top: 0;">
+            <div class="section-title">
+                <h2>Why Join IndusTiers?</h2>
+                <p>More than just a server — it's a community built for competitors.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-medal"></i></div>
+                    <h3>Events</h3>
+                    <p>Regular community events with unique challenges and rewards.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-gift"></i></div>
+                    <h3>Giveaways</h3>
+                    <p>Frequent giveaways for ranks, cosmetics, and more.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Championships</h3>
+                    <p>Compete in seasonal championships to prove your skill.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-award"></i></div>
+                    <h3>Tournaments</h3>
+                    <p>Structured tournaments with brackets and prizes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Chill Community</h3>
+                    <p>An active and welcoming Discord community of 1000+ members.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Recruitment Open</h3>
+                    <p>We're hiring Staff, Builders, Designers, and Addon Makers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMMUNITY -->
+        <section class="community">
+            <h2>Join Our Community</h2>
+            <p>
+                Connect with over 1000 members, participate in events, and stay updated 
+                on server announcements. Partnership and collabs are open!
+            </p>
+
+            <div class="community-stats">
+                <div class="stat-item">
+                    <h3>1000+</h3>
+                    <p>Discord Members</p>
+                </div>
+                <div class="stat-item">
+                    <h3>6+</h3>
+                    <p>Gamemodes</p>
+                </div>
+                <div class="stat-item">
+                    <h3>24/7</h3>
+                    <p>Community</p>
+                </div>
+            </div>
+
+            <a href="https://discord.gg/yXB3zfjewb" target="_blank" rel="noopener" class="btn-discord">
+                Join Discord Server
+            </a>
+        </section>
+
+    </div>
+
+    <!-- ===== EDIT PROFILE PAGE ===== -->
+    <div class="profile-page" id="profilePage">
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar" id="avatarPreview">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2>Edit Profile</h2>
+                <p class="profile-email" id="profileEmailDisplay"></p>
+            </div>
+
+            <form id="profileForm" onsubmit="handleProfileSubmit(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="profilePicture">Profile Picture</label>
+                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewProfilePicture(event)">
+                    <small>Upload an image from your gallery. Max 2MB.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="profileFrame">Profile Frame</label>
+                    <select id="profileFrame" name="profileFrame">
+                        <option value="none">None</option>
+                        <option value="blue">Blue Frame</option>
+                        <option value="gold">Gold Frame</option>
+                        <option value="emerald">Emerald Frame</option>
+                        <option value="crimson">Crimson Frame</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" name="newPassword" placeholder="Leave blank to keep current">
+                    <small>Must be at least 8 characters. Supabase will email you to confirm.</small>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-save" id="saveProfileBtn">Save Changes</button>
+                    <button type="button" class="btn-cancel" onclick="showHome(event)">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>IndusTiers</h3>
+                <p>
+                    A competitive Minecraft server for Bedrock and Java players. 
+                    Custom minigames, tier tests, and a growing community.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#" onclick="showHome(event)">Home</a></li>
+                    <li><a href="#" onclick="handleAccountClick(event)">Account</a></li>
+                    <li><a href="https://discord.gg/yXB3zfjewb" target="_blank" rel="noopener">Discord</a></li>
+                    <li><a href="https://industiers.vercel.app/ranking" target="_blank" rel="noopener">Leaderboard</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Server Info</h4>
+                <ul>
+                    <li><a href="#">IP: indusgames.mine.bz</a></li>
+                    <li><a href="#">Port: 25567</a></li>
+                    <li><a href="#">Java & Bedrock</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#" onclick="alert('Privacy Policy page — coming soon.')">Privacy Policy</a></li>
+                    <li><a href="#" onclick="alert('Terms of Service page — coming soon.')">Terms of Service</a></li>
+                    <li><a href="#" onclick="alert('Cookie Policy page — coming soon.')">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 IndusTiers. All rights reserved. Not affiliated with Mojang AB.</p>
+            <p style="margin-top:0.5rem; font-size:0.8rem;">
+                Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> for the Minecraft community.
+            </p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+  </html>
