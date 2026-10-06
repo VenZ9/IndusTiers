@@ -22,7 +22,6 @@ function updateThemeIcons(theme) {
     if (iconMobile) iconMobile.className = iconClass;
 }
 
-// Set the correct icon on page load
 document.addEventListener('DOMContentLoaded', function () {
     const theme = document.documentElement.getAttribute('data-theme') || 'light';
     updateThemeIcons(theme);
@@ -63,6 +62,16 @@ window.addEventListener('scroll', function () {
    ============================================================ */
 function showHome(event) {
     if (event) event.preventDefault();
+    document.getElementById('homePage').classList.remove('hidden');
+    document.getElementById('rulesPage').classList.remove('active');
+    document.getElementById('menuDropdown').classList.remove('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showRules(event) {
+    if (event) event.preventDefault();
+    document.getElementById('homePage').classList.add('hidden');
+    document.getElementById('rulesPage').classList.add('active');
     document.getElementById('menuDropdown').classList.remove('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
